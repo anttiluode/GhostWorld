@@ -1,5 +1,7 @@
 # GhostWorld — The World That Keeps Moving
 
+![pic](pic.png)
+
 **An offline, interactive blind-prediction laboratory.** Two moving objects carry distinct identity marks. Observe them, switch off the sensor, watch a separate internal model autonomously continue its best guesses, and reveal the world. Predictions are scored **before** sensor data re-enters the model.
 
 Open **[the GhostWorld live demo](https://anttiluode.github.io/GhostWorld/)** if GitHub Pages is enabled, or download the repository and open `index.html` directly in Chrome/Edge/Firefox. No server, network, libraries, Python, model weights or GPU required.
