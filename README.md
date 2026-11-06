@@ -37,6 +37,7 @@ Node 18+ is optional, used only for the headless deterministic tests:
 
 ```bash
 node test_core.js
+node test_browser_smoke.js
 ```
 
 Tests cover blind observation, future-time dependence, identical past observations despite different hidden worlds, non-writing wave probes, read/writer bounds and the no-update behavior during blackout. The browser app needs **no Node installation** to run.
