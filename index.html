@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#070d18">
+  <meta name="description" content="GhostWorld: a blind, continuously evolving world-model experiment. Hide the world, watch predictions advance, then reveal and measure error.">
+  <title>GhostWorld — The World That Keeps Moving</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient a1"></div><div class="ambient a2"></div>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brandmark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <div><div class="eyebrow">ANTTILUODE / RESEARCH INSTRUMENT 001</div><h1>GHOST<span>WORLD</span><em> / LIVE LATENT LAB</em></h1></div>
+      </div>
+      <div class="topstats"><div class="on-dot"></div><span>SIMULATION LIVE</span><span class="sep">/</span><span id="clock">00:00.0</span><span class="sep">/</span><span id="fps">60 FPS</span></div>
+    </header>
+    <div class="intro"><h2>The world keeps moving <i>after you stop looking.</i></h2><p>Let the observers learn a moving scene. Cut their vision. Watch an independent internal world keep predicting. Reveal reality and measure exactly how wrong it was.</p></div>
+    <main class="layout">
+      <section class="stage card">
+        <div class="sectionhead"><div><div class="kicker">01 / LIVE EXPERIMENT</div><h3>Observation vs. belief</h3></div><div class="pills"><span id="liveChip" class="chip active">OBSERVING</span><span id="historyChip" class="chip">0.0s hidden</span></div></div>
+        <div class="scenes">
+          <div class="scene"><div class="scenelabel"><span class="square cyan"></span><span>EXTERNAL WORLD</span><small>sensor input</small></div><div class="viewport"><canvas id="world" width="1000" height="620" aria-label="What the observer's sensor can see"></canvas><div id="blackoutLabel" class="blackout-label hidden"><span class="noeye">◌</span><strong>SENSOR OFFLINE</strong><small>Hidden state cannot be observed</small></div></div><div class="canvasfoot"><span id="sensorCount">0 sensor observations</span><span>REALITY · NEVER SHARED WHILE HIDDEN</span></div></div>
+          <div class="scene"><div class="scenelabel"><span class="square pink"></span><span>INTERNAL WORLD</span><small>memory + prediction</small></div><div class="viewport"><canvas id="belief" width="1000" height="620" aria-label="Blind prediction based only on observations"></canvas><div id="beliefBadge" class="hudnote">FORECASTING</div></div><div class="canvasfoot"><span>GHOST TRACKS · <span id="knownCount">0</span> identities</span><span>NO HIDDEN TRUTH ACCESS</span></div></div>
+        </div>
+        <div class="toolbar"><button id="blackout" class="primary"><span class="buttonglyph">◉</span><span id="blackoutText">BLACKOUT</span></button><button id="timed" class="outline"><span class="buttonglyph">◷</span> AUTO 6s</button><button id="pause" class="outline"><span id="pauseIcon">Ⅱ</span> <span id="pauseText">PAUSE</span></button><button id="reset" class="outline"><span class="buttonglyph">↺</span> NEW WORLD</button><span class="hotkey">SPACE pause · B blackout · R reveal</span></div>
+        <div class="timeline"><div class="linehead"><span>REPLAY BUFFER <strong id="replayStatus">LIVE</strong></span><span id="elapsed">00:00.0</span></div><input id="scrub" aria-label="Timeline scrub; pauses simulation and reviews recorded snapshots" type="range" min="0" max="1" value="1" step="1"><div class="linefoot"><span>PAST</span><span>Scrub to inspect what was predicted <em>at that moment</em>, before the reveal.</span><span>NOW</span></div></div>
+      </section>
+      <aside class="side">
+        <section class="card medium-card"><div class="sectionhead compact"><div><div class="kicker">02 / WAVE-WRITTEN TRACE</div><h3>Living medium</h3></div><span class="live-tag">● RUNNING</span></div>
+          <canvas id="medium" width="600" height="310" aria-label="Eight autonomous coupled oscillators with sixteen plastic edges"></canvas>
+          <div class="medium-metrics"><div><span>WRITABLE EDGES</span><strong>16</strong></div><div><span>OSCILLATORS</span><strong>8</strong></div><div><span>READ PROBE</span><strong id="echo">0.000</strong></div></div>
+          <p class="caveat">Wave dynamics and locally plastic edges are real computations. This graph is an <strong>independent diagnostic trace</strong>; it does not secretly steer the motion predictor.</p>
+          <div class="param"><label for="probe">Probe frequency <strong id="probeVal">1.40 Hz</strong></label><input type="range" id="probe" min="0.3" max="3" step="0.05" value="1.4"></div>
+          <div class="param"><label for="plasticity">Structural plasticity <strong id="plasticVal">0.27</strong></label><input type="range" id="plasticity" min="0" max="1" step="0.01" value="0.27"></div>
+          <div class="toggleline"><label class="switch"><input id="plasticToggle" type="checkbox" checked><span class="switchtrack"></span>Plastic writing enabled</label><button class="mini" id="resetMedium">RESET MEDIUM</button></div>
+        </section>
+        <section class="card control-card"><div class="sectionhead compact"><div><div class="kicker">03 / READER SETTINGS</div><h3>Prediction policy</h3></div></div>
+          <div class="optiongroup" role="group" aria-label="Prediction policy"><button class="option" data-mode="hold">HOLD</button><button class="option" data-mode="straight">LINEAR</button><button class="option chosen" data-mode="multi">3 PATHS</button></div>
+          <p class="caveat" id="modeExplanation">Three autonomous constant-turn hypotheses advance between sightings. Their spread visualizes uncertainty. No future frames are supplied.</p>
+          <div class="toggleline"><label class="switch"><input id="wallToggle" type="checkbox" checked><span class="switchtrack"></span>Central occluding wall</label></div>
+          <div class="toggleline"><label class="switch"><input id="trailsToggle" type="checkbox" checked><span class="switchtrack"></span>Show candidate futures</label></div>
+        </section>
+      </aside>
+      <section class="metrics card"><div class="sectionhead compact"><div><div class="kicker">04 / BLIND EVALUATION</div><h3>Pre-reveal prediction error</h3></div><span class="micro">lower is better · scene units</span></div>
+        <div class="metric-grid"><div class="metric"><span>LAST REVEAL / LIVE MODEL</span><strong id="liveError">—</strong><small id="liveErrorNote">Start a blackout to measure</small></div><div class="metric"><span>LAST REVEAL / LINEAR BASELINE</span><strong id="baselineError">—</strong><small id="baselineNote">Same last observed states</small></div><div class="metric"><span>BLIND INTERVAL</span><strong id="blindTime">—</strong><small>Measured before assimilation</small></div><div class="metric"><span>CUMULATIVE REVEALS</span><strong id="reveals">0</strong><small id="winNote">No winner claimed</small></div></div>
+        <div class="metric-bottom"><div class="legend"><span><b class="key cyan-key"></b>Sensor</span><span><b class="key pink-key"></b>Belief</span><span><b class="key amber-key"></b>Alternative trajectories</span></div><div id="verdict">The right panel must predict from past observations alone. Press BLACKOUT after the objects move for a moment.</div></div>
+      </section>
+    </main>
+    <footer><span>GHOSTWORLD // OPEN, OFFLINE, AUDITABLE</span><span>AN EXPERIMENT IN CONTINUING STATE · NOT A TRAINED VISION MODEL</span><a href="https://github.com/anttiluode/GhostWorld" target="_blank" rel="noopener">SOURCE ↗</a></footer>
+  </div>
+  <script src="core.js"></script><script src="app.js"></script>
+</body>
+</html>
